@@ -55,6 +55,7 @@ PACKAGES=(
     "trash-cli"
     "ttf-ubuntu-mono-nerd"
     "ttf-ubuntu-nerd"
+    "ufw"
     "yazi"
 )
 
