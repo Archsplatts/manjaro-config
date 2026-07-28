@@ -61,7 +61,7 @@ PACKAGES=(
 sudo pacman -S --noconfirm --needed "${PACKAGES[@]}"
 
 echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${JAUNE}[3/7] Copie des dotfiles${NC}"
+echo -e "${JAUNE}[3/5] Copie des dotfiles${NC}"
 echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
 
 cd ~/manjaro-config
