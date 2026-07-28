@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# Afficher le menu et capturer la sélection
+selection=$(echo -e "󰊠 Mettre le système à jour\n󰣇 Lire les news Archlinux\n Gérer les paquets orphelins\n󰮯 Nettoyer le cache de pacman\n󰓅 Rafraichir les miroirs\n󰁯 Sauvegarde Timeshift" | rofi -dmenu -config ~/.config/rofi/system-menu.rasi)
+
+# Vérifier si une sélection a été faite
+if [[ -n "$selection" ]]; then
+    case "$selection" in
+        "󰊠 Mettre le système à jour")
+            foot sh -c '
+                updates=$(checkupdates 2>/dev/null)
+                if [[ -z "$updates" ]]; then
+                    echo "Votre système est à jour."
+                else
+                    echo "Mises à jour disponibles :"
+                    echo "$updates"
+                    echo ""
+                    read -p "Voulez-vous installer ces mises à jour ? (o/N) : " confirm
+                    if [[ "$confirm" =~ ^[Oo]$ ]]; then
+                        sudo pacman -Syu --noconfirm
+                        pkill -SIGRTMIN+1 waybar || true
+                        echo "Mises à jour terminées."
+                    else
+                        echo "Opération annulée."
+                    fi
+                fi
+                echo ""
+                read -n 1 -s -p "Appuyez sur une touche pour quitter..."
+            '
+            ;;
+		"󰣇 Lire les news Archlinux")
+			brave-origin "https://archlinux.org"
+			;;
+        " Gérer les paquets orphelins")
+            foot sh -c '
+                orphans=$(pacman -Qdtq 2>/dev/null)
+                if [[ -z "$orphans" ]]; then
+                    echo "Aucun paquet orphelin trouvé."
+                else
+                    echo "Paquets orphelins trouvés :"
+                    echo "$orphans"
+                    echo ""
+                    read -p "Voulez-vous les supprimer ? (o/N) : " confirm
+                    if [[ "$confirm" =~ ^[Oo]$ ]]; then
+                        echo "$orphans" | sudo pacman -Rs --noconfirm -
+                        echo "Nettoyage terminé."
+                    else
+                        echo "Opération annulée."
+                    fi
+                fi
+                echo ""
+                read -n 1 -s -p "Appuyez sur une touche pour quitter..."
+            '
+            ;;
+        "󰮯 Nettoyer le cache de pacman")
+            foot sh -c "sudo pacman -Sc || true; echo; read -n 1 -s -p 'Appuyez sur une touche pour quitter...'"
+            ;;
+
+        "󰓅 Rafraichir les miroirs")
+        	foot sh -c "sudo reflector --country France,Germany --latest 5 --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist --verbose|| true; echo; read -n 1 -s -p 'Appuyez sur une touche pour quitter...'"
+			;;
+        "󰁯 Sauvegarde Timeshift")
+            foot sh -c "sudo timeshift --create || true; echo; read -n 1 -s -p 'Appuyez sur une touche pour quitter...'"
+            ;;
+    esac
+fi   

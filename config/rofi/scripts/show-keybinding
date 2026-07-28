@@ -1,0 +1,6 @@
+#!/bin/bash
+
+KEYBINDING_FILE="$HOME/.config/rofi/keybinding"
+
+cat "$KEYBINDING_FILE" | rofi -dmenu -i -p "Raccourcis clavier:" \
+  -show run -config ~/.config/rofi/keybinding-window.rasi

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+KEYBINDING_FILE="$HOME/.config/rofi/alias"
+
+cat "$KEYBINDING_FILE" | rofi -dmenu -i -p "Alias:" \
+  -show run -config ~/.config/rofi/alias-window.rasi

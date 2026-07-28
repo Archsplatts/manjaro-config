@@ -1,0 +1,21 @@
+#!/bin/bash
+
+BOOKMARKS_FILE="$HOME/.config/BraveSoftware/Brave-Origin/Default/Bookmarks"
+
+if [ ! -f "$BOOKMARKS_FILE" ]; then
+    echo "Fichier non trouvé: $BOOKMARKS_FILE"
+    exit 1
+fi
+
+selected=$(jq -r '
+  .. | objects | 
+  select(.url != null and .name != null) | 
+  "\(.name) || \(.url)"
+' "$BOOKMARKS_FILE" | \
+rofi -dmenu -config ~/.config/rofi/bookmarks.rasi -p "  Favoris")
+
+selected_url=$(echo "$selected" | sed 's/.*|| //')
+
+if [ -n "$selected_url" ] && [ "$selected_url" != "" ]; then
+    xdg-open "$selected_url"
+fi

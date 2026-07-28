@@ -1,0 +1,28 @@
+#!/usr/bin/bash
+
+WALLPAPER_DIR="$HOME/Images/Wallpapers/"
+IMAGE_PICKER_CONFIG="$HOME/.config/rofi/wallpaper-menu.rasi"
+WALLPAPER_FILES=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \))
+ROFI_MENU=""
+
+# Récupérer le PID de l'ancien processus swaybg
+OLD_PID=$(pidof swaybg)
+
+while IFS= read -r WALLPAPER_PATH; do
+  WALLPAPER_NAME=$(basename "$WALLPAPER_PATH")
+  ROFI_MENU+="${WALLPAPER_NAME}\0icon\x1f${WALLPAPER_PATH}\n"
+done <<<"$WALLPAPER_FILES"
+
+SELECTED_WALLPAPER=$(echo -e "$ROFI_MENU" | rofi -dmenu \
+  -p "Choisir un fond d'écran:" \
+  -theme "$IMAGE_PICKER_CONFIG" \
+  -markup-rows)
+
+if [[ -n "$SELECTED_WALLPAPER" ]]; then
+  # Lancer la nouvelle instance avec le fond sélectionné
+  swaybg -i "$WALLPAPER_DIR/$SELECTED_WALLPAPER" -m fill &
+  # Attendre un court instant
+  sleep 0.5
+  # Tuer l'ancienne instance pour éviter le flash gris
+  [[ -n "$OLD_PID" ]] && kill $OLD_PID
+fi   

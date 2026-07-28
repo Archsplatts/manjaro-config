@@ -1,0 +1,10 @@
+
+	add			pacman -S
+	cleancache	pacman -Sc
+	cleanorphans	pacman -Rs $(pacman -Qdtq)
+	info			pacman -Si
+	list				pacman -Qqe > /Info/list
+	orphans		pacman -Qdtq
+	qi				pacman -Qi
+	remove		pacman -Rns
+	search			pacman -Ss

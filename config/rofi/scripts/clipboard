@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+term="foot"
+
+# Détection du gestionnaire
+if command -v cliphist &>/dev/null; then
+	clipboard_manager="cliphist"
+elif command -v clipman &>/dev/null; then
+	clipboard_manager="clipman"
+else
+	echo "No supported clipboard manager found."
+	exit 1
+fi
+
+# Récupérer le contenu
+case $clipboard_manager in
+cliphist)
+	clipboard_content=$(cliphist list)
+	;;
+clipman)
+	clipboard_content=$(clipman pick -t STDOUT)
+	;;
+esac
+
+# Afficher avec rofi
+selected_item=$(echo "$clipboard_content" | rofi \
+	-dmenu \
+	-p "Clipboard History" \
+	-scroll-method 0 \
+	-terminal "$term" \
+	-kb-cancel Escape)
+
+# Copier le contenu sélectionné
+if [[ -n "$selected_item" ]]; then
+	case $clipboard_manager in
+	cliphist)
+		selected_content=$(echo "$selected_item" | sed 's/^[0-9]\+ //')
+		echo -n "$selected_content" | cliphist store
+		echo -n "$selected_content" | wl-copy
+		;;
+	clipman)
+		echo -n "$selected_item" | clipman store
+		if command -v wl-copy &>/dev/null; then
+			echo -n "$selected_item" | wl-copy
+		fi
+		;;
+	esac
+fi
