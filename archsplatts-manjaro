@@ -50,6 +50,7 @@ PACKAGES=(
     "micro"
     "papirus-folders"
     "rofi"
+    "steam"
     "timeshift"
     "trash-cli"
     "ttf-ubuntu-mono-nerd"
