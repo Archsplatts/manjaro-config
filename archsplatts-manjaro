@@ -43,7 +43,6 @@ PACKAGES=(
     "dust"
     "eza"
     "fastfetch"
-    "gnome-disk-utility"
     "impression"
     "lact"
     "lollypop"
