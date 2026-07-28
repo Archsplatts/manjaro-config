@@ -1,20 +1,20 @@
 #!/bin/bash
 
-selection=$(echo -e " Installer les mises à jour\n󱘊 Lire les notes de mise à jour Manjaro\n󰮯 Nettoyer le cache de pacman\n Gérer les paquets orphelins\n󰁯 Sauvegarde Timeshift" | rofi -dmenu -config $HOME/Projets/manjaro-rofi/rofi/manjaro-menu.rasi)
+selection=$(echo -e " Installer les mises à jour\n󱘊 Lire les notes de mise à jour Manjaro\n󰮯 Nettoyer le cache de pacman\n Gérer les paquets orphelins\n󰁯 Sauvegarde Timeshift" | rofi -dmenu -config $HOME/.config/rofi/system-menu.rasi)
 
 if [[ -n "$selection" ]]; then
     case "$selection" in
         " Installer les mises à jour")
-			alacritty sh -c "sudo pacman-mirrors -c France,Germany && sudo pacman -Syyu || true; echo; read -n 1 -s -p 'Appuyez sur une touche pour quitter...'"
+			alacritty -e sh -c "sudo pacman-mirrors -c France,Germany && sudo pacman -Syyu || true; echo; read -n 1 -s -p 'Appuyez sur une touche pour quitter...'"
 			;;
 	    "󱘊 Lire les notes de mise à jour Manjaro")
 	   		firefox "https://forum.manjaro.org/c/announcements/stable-updates/12"
 	   		;;		
         "󰮯 Nettoyer le cache de pacman")
-            alacritty sh -c "sudo pacman -Sc || true; echo; read -n 1 -s -p 'Appuyez sur une touche pour quitter...'"
+            alacritty -e sh -c "sudo pacman -Sc || true; echo; read -n 1 -s -p 'Appuyez sur une touche pour quitter...'"
             ;;
         " Gérer les paquets orphelins")
-            alacritty sh -c '
+            alacritty -e sh -c '
                 orphans=$(pacman -Qdtq 2>/dev/null)
                 if [[ -z "$orphans" ]]; then
                     echo "Aucun paquet orphelin trouvé."
@@ -35,7 +35,7 @@ if [[ -n "$selection" ]]; then
             '
             ;;
         "󰁯 Sauvegarde Timeshift")
-			alacritty sh -c "sudo timeshift --create || true; echo; read -n 1 -s -p 'Appuyez sur une touche pour quitter...'"
+			alacritty -e sh -c "sudo timeshift --create || true; echo; read -n 1 -s -p 'Appuyez sur une touche pour quitter...'"
 			;;
     esac
 fi   
