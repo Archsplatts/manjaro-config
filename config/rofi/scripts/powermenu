@@ -12,7 +12,7 @@ case "$CHOSEN" in
         systemctl reboot
         ;;
 	"")
-		swaylock -f
+		xflock4
 		;;
     "󰍃")
         xfce4-session-logout --logout
