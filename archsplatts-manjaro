@@ -64,8 +64,9 @@ echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━
 echo -e "${JAUNE}[3/5] Copie des dotfiles${NC}"
 echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
 
-cd ~/manjaro-config
-cp -r config/* ~/.config
+cd $HOME/manjaro-config
+cp -r config/* $HOME/.config
+chmod u+x $HOME/.config/rofi/scripts/*
 
 echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${JAUNE}[4/5] Activation du pare-feu${NC}"
