@@ -1,13 +1,13 @@
 #!/bin/bash
 
-selection=$(echo -e " Installer les mises à jour\n󱘊 Lire les notes de mise à jour Manjaro\n󰮯 Nettoyer le cache de pacman\n Gérer les paquets orphelins\n󰁯 Sauvegarde Timeshift" | rofi -dmenu -config $HOME/.config/rofi/system-menu.rasi)
+selection=$(echo -e " Installer les mises à jour\n󱘊 Lire les notes de mise à jour\n󰮯 Nettoyer le cache de pacman\n Gérer les paquets orphelins\n󰁯 Sauvegarde Timeshift" | rofi -dmenu -config $HOME/.config/rofi/system-menu.rasi)
 
 if [[ -n "$selection" ]]; then
     case "$selection" in
         " Installer les mises à jour")
 			alacritty -e sh -c "sudo pacman-mirrors -c France,Germany && sudo pacman -Syyu || true; echo; read -n 1 -s -p 'Appuyez sur une touche pour quitter...'"
 			;;
-	    "󱘊 Lire les notes de mise à jour Manjaro")
+	    "󱘊 Lire les notes de mise à jour")
 	   		firefox "https://forum.manjaro.org/c/announcements/stable-updates/12"
 	   		;;		
         "󰮯 Nettoyer le cache de pacman")
