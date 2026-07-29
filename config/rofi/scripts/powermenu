@@ -15,6 +15,6 @@ case "$CHOSEN" in
 		swaylock -f
 		;;
     "󰍃")
-        pkill mango
+        xfce4-session-logout --logout
         ;;
 esac
