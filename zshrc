@@ -17,14 +17,14 @@ alias update="sudo pacman-mirrors -c France,Germany && sudo pacman -Syyu"
 ## Système
 alias cache="dust .cache"
 alias cleantemp="sudo rm -rf /var/cache/pacman/pkg/download-*"
-alias conf="yazi .config"
+alias conf="yazi $HOME/.config"
 alias error="journalctl -p 3 -xb"
 alias rm="trash -v"
-alias zshrc="micro .zshrc && source ~/.zshrc"
+alias zshrc="micro .zshrc && source $HOME/.zshrc"
 
 ## Utilitaires
 alias c="clear"
-alias cdt="cd ~/Téléchargements"
+alias cdt="cd $HOME/Téléchargements"
 alias ff="fastfetch"
 alias fm="yazi"
 alias ls="eza --icons -1 --group-directories-first"
