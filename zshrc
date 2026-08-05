@@ -3,14 +3,14 @@ export EDITOR="micro"
 export MICRO_TRUECOLOR=1
 
 ## Pacman
-alias add="sudo pacman -S"
+alias add="sudo pacman -S --noconfirm"
 alias cleancache="sudo pacman -Sc"
 alias cleanorphans="sudo pacman -Rs $(pacman -Qdtq)"
+alias del="sudo pacman -Rns"
 alias info="pacman -Si"
 alias list="pacman -Qqe > $HOME/Documents/list"
 alias orphans="pacman -Qdtq"
 alias qi="pacman -Qi"
-alias remove="sudo pacman -Rns"
 alias search="pacman -Ss"
 alias update="sudo pacman-mirrors -c France,Germany && sudo pacman -Syyu"
 
