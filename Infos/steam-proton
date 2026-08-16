@@ -1,0 +1,31 @@
+## Protonup-qt
+
+Outil graphique qui permet de télécharger directement les dernières versions de Proton, 
+l'outil de compatibilité essentiel pour le gaming sous linux.
+
+Choisir "Installer pour Steam" puis "ajouter une version"
+
+Il y a plusieurs fournisseurs: 
+Valve (officiel), Gloriouseggroll (GE-Proton), CachyOS (Proton-CachyOS)
+
+Les versions GE et CachyOS sont les plus à jour et les plus performantes.
+
+De nouvelles versions sont publiées regulièrement (à surveiller de temps en temps).
+
+---
+
+## Options de lancement Steam (à appliquer à chaque jeu)
+
+Faire clique droit sur un jeu de la bibliothèque, 
+puis onglet général --> Options de lancement,
+insérer cette commande : mangohud gamemoderun %command%
+
+---
+
+## Options Steam générales
+
+En haut à gauche de la fenêtre de Steam, cliquer sur  Steam puis paramètres
+
+Onglet compatibilité, choisir outil de compatibilité par défaut :
+GE-Proton ou proton-cachyosv3
+(dernière version de l'un ou l'autre suivant ce qui fonctionne le mieux)

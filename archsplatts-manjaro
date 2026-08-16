@@ -1,0 +1,122 @@
+#!/bin/bash
+
+set -euo pipefail
+
+VERT='\033[0;32m'
+JAUNE='\033[1;33m'
+NC='\033[0m'
+
+echo -e "${VERT}                                   ▄▄                    ${NC}"
+echo -e "${VERT}                  █▄                ██       █▄  █▄      ${NC}"
+echo -e "${VERT}       ▄          ██                ██      ▄██▄▄██▄     ${NC}"
+echo -e "${VERT} ▄▀▀█▄ ████▄▄███▀ ████▄ ▄██▀█ ████▄ ██ ▄▀▀█▄ ██  ██ ▄██▀█${NC}"
+echo -e "${VERT} ▄█▀██ ██   ██    ██ ██ ▀███▄ ██ ██ ██ ▄█▀██ ██  ██ ▀███▄${NC}"
+echo -e "${VERT}▄▀█▄██▄█▀  ▄▀███▄▄██ ███▄▄██▀▄████▀▄██▄▀█▄██▄██ ▄███▄▄██▀${NC}"
+echo -e "${VERT}                              ██                         ${NC}"
+echo -e "${VERT}                              ▀                          ${NC}"
+
+echo -e "${JAUNE}Bienvenue dans le script de configuration Archsplatts pour Manjaro!${NC}\n"
+
+if [ -t 0 ]; then
+    read -p "Appuyez sur Entrée pour continuer... "
+fi   
+
+echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${JAUNE}[1/6] Mise à jour du système${NC}"
+echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
+
+sudo pacman-mirrors -c France,Germany
+sudo pacman -Syyu
+
+echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${JAUNE}[2/6] Installation des applications${NC}"
+echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
+
+PACKAGES=(
+    "alacritty"
+    "audacity"
+    "baobab"
+    "chromium"
+    "impression"
+    "timeshift"
+    "ufw"
+)
+
+sudo pacman -S --noconfirm --needed "${PACKAGES[@]}"
+
+echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${JAUNE}[3/6] Installation des paquets gaming${NC}"
+echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
+
+GAMING_PKGS=(
+	"discord"
+	"gamemode"
+	"heroic-games-launcher"
+	"lact"
+	"lib32-gamemode"
+	"lib32-mangohud"
+	"lib32-mesa"
+	"lib32-vulkan-icd-loader"
+	"lib32-vulkan-radeon"
+	"mesa"
+	"protonup-qt"
+	"mangohud"
+	"steam"
+	"vulkan-icd-loader"
+	"vulkan-radeon"
+)
+
+sudo pacman -S --noconfirm --needed "${GAMING_PKGS[@]}"
+
+echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${JAUNE}[4/6] Installation des utilitaires${NC}"
+echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
+
+UTILS_PKGS=(
+	
+	"bat"
+	"btop"
+	"cups"
+	"dust"
+	"eza"
+	"fastfetch"
+	"manjaro-printer"
+	"meld"
+	"pacman-contrib"
+	"system-config-printer"
+	"trash-cli"
+	"ttf-ubuntu-mono-nerd"
+	"ttf-ubuntu-nerd"
+	"yazi"
+)
+
+sudo pacman -S --noconfirm --needed "${UTILS_PKGS[@]}"
+
+echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${JAUNE}[5/6] Copie des dotfiles${NC}"
+echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
+
+mkdir -p $HOME/Infos
+cd $HOME/manjaro-config
+cp -r config/* $HOME/.config
+cp -r Infos/* $HOME/Infos
+cp LACT-profile-BoostSplatts.json $HOME/Documents
+
+echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "${JAUNE}[6/6] Services, groupes et module ${NC}"
+echo -e "${JAUNE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
+
+sudo systemctl enable --now cups
+sudo systemctl enable --now lactd
+sudo ufw enable
+sudo systemctl enable ufw
+
+sudo usermod -aG gamemode "$USER"
+
+echo ntsync | sudo tee /etc/modules-load.d/ntsync.conf   
+
+echo -e "${VERT}╔════════════════════════════════════════╗${NC}"
+echo -e "${VERT}║  Installation terminée avec succès !   ║${NC}"
+echo -e "${VERT}╚════════════════════════════════════════╝${NC}\n"
+
+echo -e "${JAUNE}⚠ Veuillez redémarrer votre système pour appliquer tous les changements.${NC}\n"
