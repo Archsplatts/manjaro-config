@@ -6,12 +6,12 @@ export MICRO_TRUECOLOR=1
 ## Pacman
 alias add="sudo pacman -S --noconfirm"
 alias cache="sudo paccache -rvk3"
-alias cleanorphans="sudo pacman -Rs $(pacman -Qdtq)"
+alias co="sudo pacman -Rs $(pacman -Qdtq)"
 alias del="sudo pacman -Rns"
 alias list="pacman -Qqe > $HOME/Documents/list"
 alias orphans="pacman -Qdtq"
 alias search="pacman -Ss"
-alias update="sudo pacman-mirrors -c France,Germany && sudo pacman -Syyu"
+alias update="sudo pacman -Syu"
 
 ## Utilitaires
 alias c="clear"
