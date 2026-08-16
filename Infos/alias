@@ -1,7 +1,7 @@
 Ajouter un programme			add <nom_du_paquet>
 Supprimer un programme			del <nom_du_paquet>
 Chercher orphelins				orphans
-Supprimer orphelins				cleanorphans
+Supprimer orphelins				co
 Chercher un paquet (dépôts)		search <nom_du_paquet>
 Mise à jour						update
 Nettoyer le cache de pacman		cache
@@ -15,5 +15,5 @@ sudo pacman -Rns
 pacman -Qdtq
 sudo pacman -Rs $(pacman -Qdtq)
 pacman -Ss
-sudo pacman-mirrors -c France,Germany && sudo pacman -Syyu
+sudo pacman -Syu
 paccache -rvk3
