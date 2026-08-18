@@ -13,12 +13,14 @@ dernières)
 
 ---
 
-## Lors de la grosse mise à jour tous les 15 jours/ 3 semaines (plusieurs centaines de paquets)
+## Lors de la grosse mise à jour toutes les 3 semaines (plusieurs centaines de paquets)
 
-Raccourci clavier windows+U qui éxecute cette commande:
-sudo pacman-mirrors -c France,Germany && sudo pacman -Syyu
+Dans le terminal :
 
-(lance la commande qui rafraichit les miroirs pour les plus optimisés, puis met à jour le système)
+update
+
+Alias qui lance cette commande: sudo pacman-mirrors -c France,Germany && sudo pacman -Syyu
+(Rafraichit les miroirs pour les plus optimisés, puis met à jour le système)
 
 Vérifier les orphelins avec orphans après la grosse mise à jour ne fait pas de mal.
 
@@ -26,4 +28,4 @@ Vérifier les orphelins avec orphans après la grosse mise à jour ne fait pas d
 
 ## Petites mises à jour ponctuelles
 
-Un simple update ou sudo pacman -Syu suffit.
+Raccourci clavier windows+U (lance un sudo pacman -Syu)
