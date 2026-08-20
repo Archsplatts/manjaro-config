@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -euo pipefail 
+
+VERT='\033[0;32m'
+JAUNE='\033[1;33m'
+NC='\033[0m'
+
+echo -e "${VERT}=== Maintenance Archsplatts ===${NC}"
+echo
+
+echo -e "${JAUNE}>>> Recherche de paquets orphelins...${NC}"
+pacman -Qdtq || echo "Aucun paquet orphelin trouvé."
+echo
+
+echo -e "${JAUNE}>>> Recherche de fichiers pacnew...${NC}"
+pacdiff || echo "Aucun fichier pacnew trouvé."
+echo
+
+echo -e "${JAUNE}>>> Nettoyage du cache de pacman...${NC}"
+paccache -rvk3
+paccache -ruk0
+echo
+
+echo -e "${VERT}=== Maintenance terminée ===${NC}"
